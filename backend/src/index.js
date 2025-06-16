@@ -17,18 +17,18 @@ import songRoutes from './routes/song.route.js';
 import albumRoutes from './routes/album.route.js';
 import statRoutes from './routes/stats.route.js';
 
+dotenv.config();
+
+const __dirname = path.resolve();
+const app = express();
+const PORT = process.env.PORT || 5000;
+
 if (process.env.NODE_ENV !== 'production') {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
     app.get("*", (req, res) => {
         res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
     })
 }
-
-dotenv.config();
-
-const __dirname = path.resolve();
-const app = express();
-const PORT = process.env.PORT || 5000;
 
 const httpServer = createServer(app);
 inititalizeSocket(httpServer);
